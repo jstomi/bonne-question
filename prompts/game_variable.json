@@ -1,0 +1,8 @@
+{
+  "PLAYER_POSITION": {
+    "description": "Indicates the position of the player"
+  },
+  "PLAYER_DISPLACEMENT": {
+    "description": "Indicate what is the position modification to apply"
+  }
+}

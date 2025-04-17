@@ -38,9 +38,11 @@ def main():
     global processes
     port_gamemaster = sys.argv[1]
     port_narrator = sys.argv[2]
+    port_validity = sys.argv[3]
     instances = [
         {"port": port_gamemaster, "home": "./ollama_instance1"},
-        {"port": port_narrator, "home": "./ollama_instance2"}
+        {"port": port_narrator, "home": "./ollama_instance2"},
+        {"port": port_validity, "home": "./ollama_instance3"}
     ]
 
     for inst in instances:

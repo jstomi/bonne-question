@@ -1,37 +1,27 @@
-import requests
 import json
 
+import variables
+from instances.call import call_chat_instance
 
-def call_game_master(prompt, port=11434, model='gemma3:12b'):
-    url = f"http://localhost:{port}/api/generate"
+gamemaster_history = [{"role": "system", "content": variables.GAMEMASTER_SYSTEM_PROMPT}]
+
+
+def call_game_master(prompt):
+    global gamemaster_history
+    with open('prompts/game_variable.json', 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
     payload = {
-        "model": model,
-        "prompt": prompt,
+        "model": variables.MODEL,
+        "messages": gamemaster_history + [{"role": "user", "content": prompt}],
         "stream": False,
         "format": {
             "type": "object",
             "properties": {
-                "valid": {
-                    "type": "boolean"
-                },
-                "deplacement": {
-                    "type": "boolean"
-                }
-            },
-            "required": [
-                "valid",
-                "deplacement"
-            ]
+                cle: {"type": "boolean"} for cle in data.keys()
+            }
         }
     }
-
-    response = requests.post(url, json=payload)
-    if response.ok:
-        try:
-            return json.loads(response.json()['response'])
-        except json.JSONDecodeError:
-            print("Erreur : La réponse reçue n'est pas un JSON valide :", response.json()['response'])
-            return None
-    else:
-        print("Erreur lors de l'appel API :", response.text)
-        return None
+    result = call_chat_instance("🎲", variables.PORTS[0], payload, "json")
+    gamemaster_history.append({"role": "assistant", "content": str(result)})
+    return result
