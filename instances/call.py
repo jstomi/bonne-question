@@ -48,4 +48,6 @@ def call_chat_instance(name, port, payload, type='text'):
     else:
         spinner.fail("💥")
         print("Erreur lors de l'appel API :", response.text)
+        print("****************")
+        print(response)
         return None

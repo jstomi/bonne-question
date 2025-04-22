@@ -21,5 +21,8 @@ with open("prompts/validity_system_prompt.txt", "r", encoding="utf-8") as f:
     VALIDITY_SYSTEM_PROMPT = f.read()
 
 
-def NARRATOR_PROMPT(prompt):
+def NARRATOR_VALID_PROMPT(prompt):
     return "player said : '" + prompt + "'.answer him."
+
+def NARRATOR_NOT_VALID_PROMPT(prompt):
+    return "player said : '" + prompt + "'.answer him by aknowledging his attempt, which has failed because it makes no sense in this world."

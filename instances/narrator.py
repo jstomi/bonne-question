@@ -11,7 +11,7 @@ def call_narrator(prompt):
         variables.PORTS[1],
         {
             "model": variables.MODEL,
-            "messages": narrator_history + [{"role": "user", "content": variables.NARRATOR_PROMPT(prompt)}],
+            "messages": narrator_history + [{"role": "user", "content": prompt}],
             "stream": False,
         })
     narrator_history.append({"role": "assistant", "content": str(result)})

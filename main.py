@@ -30,10 +30,10 @@ def new_player_prompt(player_prompt):
 
     if (validity['VALID']):
         game_master_response = call_game_master(player_prompt)
-        response = call_narrator(player_prompt)
+        response = call_narrator(variables.NARRATOR_VALID_PROMPT(player_prompt))
     else:
-        print("Ce n'est pas valide comme prompt !")
-        print(player_prompt)
+        print("DEBUG : prompt non valide")
+        response = call_narrator(variables.NARRATOR_NOT_VALID_PROMPT(player_prompt))
 
 
 def main():
